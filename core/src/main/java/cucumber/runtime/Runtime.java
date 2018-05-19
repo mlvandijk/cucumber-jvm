@@ -17,8 +17,6 @@ import io.cucumber.stepexpression.TypeRegistry;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
 
 import static java.util.Collections.singletonList;
 
@@ -34,7 +32,7 @@ public class Runtime {
     private final ResourceLoader resourceLoader;
     private final ClassLoader classLoader;
     private final Runner runner;
-    private final List<PicklePredicate> filters;
+    private final Filters filters;
     private final EventBus bus;
     private final Compiler compiler = new Compiler();
 
@@ -63,20 +61,7 @@ public class Runtime {
         glue = optionalGlue == null ? new RuntimeGlue() : optionalGlue;
         this.bus = new EventBus(stopWatch);
         this.runner = new Runner(glue, bus, backends, runtimeOptions);
-        this.filters = new ArrayList<PicklePredicate>();
-        List<String> tagFilters = runtimeOptions.getTagFilters();
-        if (!tagFilters.isEmpty()) {
-            this.filters.add(new TagPredicate(tagFilters));
-        }
-        List<Pattern> nameFilters = runtimeOptions.getNameFilters();
-        if (!nameFilters.isEmpty()) {
-            this.filters.add(new NamePredicate(nameFilters));
-        }
-        Map<String, List<Long>> lineFilters = runtimeOptions.getLineFilters(resourceLoader);
-        if (!lineFilters.isEmpty()) {
-            this.filters.add(new LinePredicate(lineFilters));
-        }
-
+        this.filters = new Filters(runtimeOptions, resourceLoader);
         exitStatus.setEventPublisher(bus);
         runtimeOptions.setEventBus(bus);
     }
@@ -131,7 +116,7 @@ public class Runtime {
     }
 
     public boolean matchesFilters(PickleEvent pickleEvent) {
-        for (PicklePredicate filter : filters) {
+        for (PicklePredicate filter : filters.getFilters()) {
             if (!filter.apply(pickleEvent)) {
                 return false;
             }
