@@ -75,10 +75,7 @@ public final class CucumberExecutor {
      * The {@link cucumber.runtime.Runtime} to run with.
      */
     private final Runtime runtime;
-
-    /**
-     * The actual {@link PickleEvent}s to run stored in {@link PickleStruct}s.
-     */
+    
     private final List<PickleEvent> pickleEvents;
 
     /**
@@ -110,7 +107,7 @@ public final class CucumberExecutor {
         runtimeOptions.addPlugin(new AndroidLogcatReporter(stats, undefinedStepsTracker, TAG));
 
         List<CucumberFeature> cucumberFeatures = runtimeOptions.cucumberFeatures(resourceLoader, runtime.getEventBus());
-        this.pickleEvents = FeatureCompiler.compile(cucumberFeatures, this.runtime);
+        this.pickleEvents = FeatureCompiler.compile(cucumberFeatures, this.runtime, this.runtime.getFilters());
         instrumentationReporter.setNumberOfTests(getNumberOfConcreteScenarios());
     }
 

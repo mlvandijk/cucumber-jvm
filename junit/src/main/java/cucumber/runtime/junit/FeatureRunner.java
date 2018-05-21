@@ -84,7 +84,7 @@ public class FeatureRunner extends ParentRunner<PickleRunner> {
             pickleEvents.add(new PickleEvent(cucumberFeature.getUri(), pickle));
         }
         for (PickleEvent pickleEvent : pickleEvents) {
-            if (runtime.matchesFilters(pickleEvent)) {
+            if (runtime.getFilters().matchesFilters(pickleEvent)) {
                 try {
                     if(jUnitReporter.stepNotifications()) {
                         PickleRunner picklePickleRunner;

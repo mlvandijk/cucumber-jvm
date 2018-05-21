@@ -1,5 +1,6 @@
 package cucumber.runtime.android;
 
+import cucumber.runtime.Filters;
 import cucumber.runtime.Runtime;
 import cucumber.runtime.model.CucumberFeature;
 import gherkin.events.PickleEvent;
@@ -18,11 +19,11 @@ final class FeatureCompiler {
      * @param cucumberFeatures the list of {@link CucumberFeature} to compile
      * @return the compiled pickles in {@link PickleEvent}s
      */
-    static List<PickleEvent> compile(final List<CucumberFeature> cucumberFeatures, final Runtime runtime) {
+    static List<PickleEvent> compile(final List<CucumberFeature> cucumberFeatures, final Runtime runtime, final Filters filters) {
         List<PickleEvent> pickles = new ArrayList<PickleEvent>();
         for (final CucumberFeature feature : cucumberFeatures) {
             for (final PickleEvent pickleEvent : runtime.compileFeature(feature)) {
-                if (runtime.matchesFilters(pickleEvent)) {
+                if (filters.matchesFilters(pickleEvent)) {
                     pickles.add(pickleEvent);
                 }
             }

@@ -101,7 +101,7 @@ public class Runtime {
     public void runFeature(CucumberFeature feature) {
         List<PickleEvent> pickleEvents = compileFeature(feature);
         for (PickleEvent pickleEvent : pickleEvents) {
-            if (matchesFilters(pickleEvent)) {
+            if (getFilters().matchesFilters(pickleEvent)) {
                 runner.runPickle(pickleEvent);
             }
         }
@@ -113,10 +113,6 @@ public class Runtime {
             pickleEvents.add(new PickleEvent(feature.getUri(), pickle));
         }
         return pickleEvents;
-    }
-
-    public boolean matchesFilters(PickleEvent pickleEvent) {
-        return filters.matchesFilters(pickleEvent);
     }
 
     public byte exitStatus() {
@@ -133,5 +129,9 @@ public class Runtime {
 
     public Runner getRunner() {
         return runner;
+    }
+
+    public Filters getFilters() {
+        return filters;
     }
 }
