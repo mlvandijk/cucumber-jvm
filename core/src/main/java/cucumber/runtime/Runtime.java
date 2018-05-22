@@ -61,7 +61,7 @@ public class Runtime {
         glue = optionalGlue == null ? new RuntimeGlue() : optionalGlue;
         this.bus = new EventBus(stopWatch);
         this.runner = new Runner(glue, bus, backends, runtimeOptions);
-        this.filters = new Filters(runtimeOptions, resourceLoader);
+        this.filters = new Filters(runtimeOptions, new RerunFilters(runtimeOptions, resourceLoader));
         exitStatus.setEventPublisher(bus);
         runtimeOptions.setEventBus(bus);
     }

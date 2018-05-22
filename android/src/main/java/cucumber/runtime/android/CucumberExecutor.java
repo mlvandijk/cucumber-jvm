@@ -75,7 +75,7 @@ public final class CucumberExecutor {
      * The {@link cucumber.runtime.Runtime} to run with.
      */
     private final Runtime runtime;
-    
+
     private final List<PickleEvent> pickleEvents;
 
     /**
