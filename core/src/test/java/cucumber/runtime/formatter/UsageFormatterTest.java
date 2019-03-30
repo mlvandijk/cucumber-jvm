@@ -45,12 +45,10 @@ public class UsageFormatterTest {
     public void resultWithStep() {
         Appendable out = mock(Appendable.class);
         UsageFormatter usageFormatter = new UsageFormatter(out);
-
         TestStep testStep = mockTestStep();
         Result result = new Result(Result.Type.PASSED, 12345L, null);
 
-
-        usageFormatter.handleTestStepFinished(new TestStepFinished(0l, mock(TestCase.class), testStep, result));
+        usageFormatter.handleTestStepFinished(new TestStepFinished(0L, mock(TestCase.class), testStep, result));
 
         Map<String, List<UsageFormatter.StepContainer>> usageMap = usageFormatter.usageMap;
         assertEquals(usageMap.size(), 1);
@@ -88,7 +86,7 @@ public class UsageFormatterTest {
         PickleStepTestStep testStep = mockTestStep();
         Result result = new Result(Result.Type.PASSED, 0L, null);
 
-        usageFormatter.handleTestStepFinished(new TestStepFinished(0L,mock(TestCase.class), testStep, result));
+        usageFormatter.handleTestStepFinished(new TestStepFinished(0L, mock(TestCase.class), testStep, result));
 
         Map<String, List<UsageFormatter.StepContainer>> usageMap = usageFormatter.usageMap;
         assertEquals(usageMap.size(), 1);
@@ -100,7 +98,7 @@ public class UsageFormatterTest {
     }
 
     @Test
-    public void doneWithoutUsageStatisticStrategies() throws IOException {
+    public void doneWithoutUsageStatisticStrategies() {
         StringBuffer out = new StringBuffer();
         UsageFormatter usageFormatter = new UsageFormatter(out);
 
@@ -118,7 +116,7 @@ public class UsageFormatterTest {
     }
 
     @Test
-    public void doneWithUsageStatisticStrategies() throws IOException {
+    public void doneWithUsageStatisticStrategies() {
         StringBuffer out = new StringBuffer();
         UsageFormatter usageFormatter = new UsageFormatter(out);
 
