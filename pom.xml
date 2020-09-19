@@ -41,7 +41,7 @@
         <gherkin.version>5.1.0</gherkin.version>
         <groovy.version>2.5.4</groovy.version>
         <picocontainer.version>2.15</picocontainer.version>
-        <spring.version>4.3.20.RELEASE</spring.version>
+        <spring.version>4.3.29.RELEASE</spring.version>
         <spring.data.version>1.11.16.RELEASE</spring.data.version>
         <!-- 5.2.2.Final or above does not appear to work on Java 7 -->
         <hibernate.version>5.1.1.Final</hibernate.version>
@@ -520,7 +520,7 @@
                                 <instrumentation>
                                     <ignoreTrivial>true</ignoreTrivial>
                                 </instrumentation>
-                                <check />
+                                <check/>
                             </configuration>
                         </plugin>
                         <plugin>
